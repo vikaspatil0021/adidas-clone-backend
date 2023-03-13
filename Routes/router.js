@@ -36,10 +36,10 @@ const verifyToken = (token)=>{
 
 router.post("/register", async(req, res) => {
 
-    const {username ,email, password} = req.body;
+    const { email, password} = req.body;
 
     try {
-        const existingUser = await UserInfo.findOne({username:username});
+        const existingUser = await UserInfo.findOne({email:email});
         if(existingUser){
             return res.status(400).json({message:"User already exists "});
         }
@@ -48,10 +48,9 @@ router.post("/register", async(req, res) => {
 
         const user = await UserInfo.create({
             email:email,
-        password:hashPassword,
-        username:username  
+        password:hashPassword
         })
-        const token = Jwt.sign({username:user.username,id:user._id},process.env.TOKEN_SECRET_KEY,{expiresIn:'1d'});
+        const token = Jwt.sign({email:user.email,id:user._id},process.env.TOKEN_SECRET_KEY,{expiresIn:'1d'});
         res.status(200).json({user:user,token:token})
         
     } catch (error) {
