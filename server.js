@@ -12,7 +12,7 @@ app.use(express.json());
 
 import router from "./Routes/router.js";
 
-await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
 
 
 
