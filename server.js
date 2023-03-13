@@ -2,17 +2,31 @@ import express from "express";
 import mongoose from "mongoose"; 
 
 import { UserInfo } from "./models/models.js";
+import router from "./Routes/router.js";
 
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 const app = express();
-app.use(express.json());
+
+import cors from "cors";
+const corsOptions = {
+    credentials: true,            //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+    origin: "http://localhost:3000"
 
 
-import router from "./Routes/router.js";
+}
+
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
+app.use(cors(corsOptions));
+
+
 
 
 
