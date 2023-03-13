@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose"; 
-
+import bodyParser from "body-parser";
 import { UserInfo } from "./models/models.js";
 import router from "./Routes/router.js";
 
