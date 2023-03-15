@@ -60,9 +60,9 @@ router.post("/register", async(req, res) => {
 })
 
 router.post("/login",async (req,res)=>{
-    const {username , password} = req.body;
+    const {email , password} = req.body;
 
-    const existingUser = await UserInfo.findOne({username:username});
+    const existingUser = await UserInfo.findOne({email:email});
         if(!existingUser){
             return res.status(400).json({message:"user doesnot exists "});
         }
@@ -73,7 +73,7 @@ router.post("/login",async (req,res)=>{
     if(!matchPassword){
         return res.json({message:"Wrong password"});
     }
-    const token = Jwt.sign({username:existingUser.username,id:existingUser._id},process.env.TOKEN_SECRET_KEY,{expiresIn:'1d'});
+    const token = Jwt.sign({email:existingUser.email,id:existingUser._id},process.env.TOKEN_SECRET_KEY,{expiresIn:'1d'});
     res.status(200).json({token:token})
 
 
