@@ -64,7 +64,7 @@ router.post("/login",async (req,res)=>{
 
     const existingUser = await UserInfo.findOne({email:email});
         if(!existingUser){
-            return res.status(400).json({message:"user doesnot exists "});
+            return res.status(200).json({message:"user doesnot exists "});
         }
 
     
