@@ -103,6 +103,16 @@ router.post('/matchPassword', async(req,res)=>{
 
 })
 
+router.post('/changePassword', async(req,res)=>{
+    const {email,password} = req.body;
+    const hashPassword = await bcrypt.hash(password,10);
+    const existingUser = await UserInfo.updateOne({email:email},{password:hashPassword});
+
+
+    return res.status(200).json("good")
+
+})
+
 
 
 router.get("/secret", ensureToken ,(req,res)=>{
