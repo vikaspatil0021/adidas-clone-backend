@@ -91,6 +91,18 @@ router.post('/checkUser',async(req,res)=>{
 
 })
 
+router.post('/matchPassword', async(req,res)=>{
+    const {email,password} = req.body;
+    const existingUser = await UserInfo.findOne({email:email});
+    const matchPassword = await bcrypt.compare(password,existingUser.password);
+    if(!matchPassword){
+        return res.status(200).json('bad')
+    }
+
+    return res.status(200).json("good")
+
+})
+
 
 
 router.get("/secret", ensureToken ,(req,res)=>{
