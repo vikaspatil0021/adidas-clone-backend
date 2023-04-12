@@ -5,7 +5,7 @@ import Jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
 dotenv.config();
 
-import { UserInfo } from '../models/models.js';
+import { UserInfo,ProductInfo } from '../models/models.js';
 
 const router = express.Router()
 
@@ -115,17 +115,9 @@ router.post('/changePassword', async(req,res)=>{
 
 
 
-router.get("/secret", ensureToken ,(req,res)=>{
-    const msg = verifyToken(req.token);
-
-    if(msg.err){
-        res.json({err:msg.err})
-    }else{
-    
-        res.json({message:"secret",data:msg})
-    }
-
-     
+router.get('/products',async()=>{
+    const data = await ProductInfo.find();
+    res.status(200).json(data);
 })
 
 
