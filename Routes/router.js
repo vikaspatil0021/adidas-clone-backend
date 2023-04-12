@@ -114,10 +114,9 @@ router.post('/changePassword', async(req,res)=>{
 })
 
 
-
-router.get('/products',async()=>{
+router.get('/products',async(req,res)=>{
     const data = await ProductInfo.find();
-    res.status(200).json(data);
+    res.status(200).json(data)
 })
 
 
