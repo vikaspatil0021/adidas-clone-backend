@@ -114,9 +114,17 @@ router.post('/changePassword', async(req,res)=>{
 })
 
 
-router.get('/products',async(req,res)=>{
+router.get('/:category',async(req,res)=>{
+    const category = req.params.category;
     const data = await ProductInfo.find();
-    res.status(200).json(data)
+    const filArr = data.filter((each) => {
+        if(category==='All'){
+            return each;
+        }else if (category === each.category) {
+            return each;
+        }
+    })
+    res.status(200).json(filArr)
 })
 
 
