@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
     username:String
 })
 
-const productSchema = mongoose.Schema({
+const menProductSchema = mongoose.Schema({
     colors:{
         c1:{
 
@@ -63,9 +63,9 @@ const womenProductSchema = mongoose.Schema({
 
 
 const UserInfo = mongoose.model("user",userSchema);
-const ProductInfo = mongoose.model("product",productSchema);
+const MenProductInfo = mongoose.model("men",menProductSchema);
 const WomenProductInfo = mongoose.model("women",womenProductSchema);
 
 
 
-export { UserInfo,ProductInfo,WomenProductInfo };
+export { UserInfo,MenProductInfo,WomenProductInfo };

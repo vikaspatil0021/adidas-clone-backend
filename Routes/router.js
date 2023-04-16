@@ -5,7 +5,7 @@ import Jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
 dotenv.config();
 
-import { UserInfo,ProductInfo, WomenProductInfo } from '../models/models.js';
+import { UserInfo, WomenProductInfo, MenProductInfo } from '../models/models.js';
 
 const router = express.Router()
 
@@ -118,7 +118,7 @@ router.get('/:gender/:category',async(req,res)=>{
     const category = req.params.category;
     const gender = req.params.gender;
     if(gender==='men'){
-        var data = await ProductInfo.find();
+        var data = await MenProductInfo.find();
 
     }else if(gender=='women'){
 
