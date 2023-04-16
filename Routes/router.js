@@ -5,7 +5,7 @@ import Jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
 dotenv.config();
 
-import { UserInfo,ProductInfo } from '../models/models.js';
+import { UserInfo,ProductInfo, WomenProductInfo } from '../models/models.js';
 
 const router = express.Router()
 
@@ -114,9 +114,16 @@ router.post('/changePassword', async(req,res)=>{
 })
 
 
-router.get('/men/:category',async(req,res)=>{
+router.get('/:gender/:category',async(req,res)=>{
     const category = req.params.category;
-    const data = await ProductInfo.find();
+    const gender = req.params.gender;
+    if(gender==='men'){
+        var data = await ProductInfo.find();
+
+    }else if(gender=='women'){
+
+        data = await WomenProductInfo.find();
+    }
     const filArr = data.filter((each) => {
         if(category==='All'){
             return each;
