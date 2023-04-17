@@ -134,6 +134,27 @@ router.get('/:gender/:category',async(req,res)=>{
         }
     })
     res.status(200).json(filArr)
+});
+
+router.get('/:gender/:category/:productId',async(req,res)=>{
+    const category = req.params.category;
+    const gender = req.params.gender;
+    const productId = req.params.productId;
+    if(gender==='men'){
+        var data = await MenProductInfo.find();
+
+    }else if(gender=='women'){
+
+        data = await WomenProductInfo.find();
+    }else{
+        data = await KidsProductInfo.find();
+    }
+    const filArr = data.filter((each) => {
+         if (productId === each.productId) {
+            return each;
+        }
+    })
+    res.status(200).json(filArr)
 })
 
 
