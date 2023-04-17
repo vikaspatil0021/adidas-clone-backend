@@ -5,7 +5,7 @@ import Jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
 dotenv.config();
 
-import { UserInfo, WomenProductInfo, MenProductInfo } from '../models/models.js';
+import { UserInfo, WomenProductInfo, MenProductInfo, KidsProductInfo } from '../models/models.js';
 
 const router = express.Router()
 
@@ -123,6 +123,8 @@ router.get('/:gender/:category',async(req,res)=>{
     }else if(gender=='women'){
 
         data = await WomenProductInfo.find();
+    }else{
+        data = await KidsProductInfo.find();
     }
     const filArr = data.filter((each) => {
         if(category==='All'){
