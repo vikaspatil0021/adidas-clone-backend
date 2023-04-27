@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 const userSchema = mongoose.Schema({
     email:String,
     password:String,
-    username:String
+    username:String,
+    address:[]
 })
 
 const menProductSchema = mongoose.Schema({
