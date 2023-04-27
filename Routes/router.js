@@ -175,7 +175,7 @@ router.get('/address/:email',async(req,res)=>{
     
         res.status(200).json(data.address)
     } catch (error) {
-        console.log(error);
+        res.status(200).json(error)
     }
 
 
