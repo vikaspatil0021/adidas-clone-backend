@@ -123,7 +123,7 @@ router.post('/changePassword', async(req,res)=>{
 })
 
 
-router.get('/:gender/:category',async(req,res)=>{
+router.get('/stock/:gender/:category',async(req,res)=>{
     const category = req.params.category;
     const gender = req.params.gender;
     if(gender==='men'){
@@ -145,7 +145,7 @@ router.get('/:gender/:category',async(req,res)=>{
     res.status(200).json(filArr)
 });
 
-router.get('/:gender/:category/:productId',async(req,res)=>{
+router.get('/product/:gender/:category/:productId',async(req,res)=>{
     const category = req.params.category;
     const gender = req.params.gender;
     const productId = req.params.productId;
