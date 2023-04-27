@@ -171,7 +171,7 @@ router.get('/address/:email',async(req,res)=>{
 
     var data = await UserInfo.findOne({email:email});
 
-    res.status(200).json(data)
+    res.status(200).json(data.address)
 
 
 })
