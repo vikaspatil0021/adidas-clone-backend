@@ -167,11 +167,16 @@ router.get('/product/:gender/:category/:productId',async(req,res)=>{
 })
 
 router.get('/address/:email',async(req,res)=>{
-    const email = req.params.email;
-
-    var data = await UserInfo.findOne({email:email});
-
-    res.status(200).json(data.address)
+    try {
+        
+        const email = req.params.email;
+    
+        var data = await UserInfo.findOne({email:email});
+    
+        res.status(200).json(data.address)
+    } catch (error) {
+        console.log(error);
+    }
 
 
 })
