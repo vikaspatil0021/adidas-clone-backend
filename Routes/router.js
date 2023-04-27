@@ -103,6 +103,15 @@ router.post('/matchPassword', async(req,res)=>{
 
 })
 
+router.post('/deleteAccount', async(req,res)=>{
+    const {email} = req.body;
+    await UserInfo.deleteOne({email:email});
+
+
+    return res.status(200).json("deleted")
+
+})
+
 router.post('/changePassword', async(req,res)=>{
     const {email,password} = req.body;
     const hashPassword = await bcrypt.hash(password,10);
