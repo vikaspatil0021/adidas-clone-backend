@@ -128,12 +128,23 @@ router.post('/address/crud/:action',async(req,res)=>{
         const email = req.body.email;
         const data = req.body.address;
         const action = req.params.action;
+        const index = req.body.index;
 
 
+        var userData = await UserInfo.findOne({email:email});
         if(action==='add'){
-            var userData = await UserInfo.findOne({email:email});
             
             await UserInfo.updateOne({email:email},{address:[...userData.address,data]});
+
+        }else if(action==='remove'){
+            var filArr = userData.address.filter((each,i)=>{
+                if(index!==i){
+                    return each;
+                }
+                    
+            })
+
+            await UserInfo.updateOne({email:email},{address:filArr});
 
         }
         
