@@ -108,7 +108,7 @@ router.post('/deleteAccount', async(req,res)=>{
     await UserInfo.deleteOne({email:email});
 
 
-    return res.status(200).json("deleted")
+    res.status(200).json("deleted")
 
 })
 
@@ -202,14 +202,17 @@ router.get('/product/:gender/:category/:productId',async(req,res)=>{
     res.status(200).json(filArr)
 })
 
-router.get('/address/:email',async(req,res)=>{
+router.get('/address/:email',ensureToken,async(req,res)=>{
     try {
         
         const email = req.params.email;
-    
-        var data = await UserInfo.findOne({email:email});
-    
-        res.status(200).json(data.address)
+        if(verifyToken(req.token)){
+
+            var data = await UserInfo.findOne({email:email});
+            res.status(200).json(data.address)
+        }else{
+            res.send(403)
+        }
     } catch (error) {
         res.status(200).json(error)
     }
