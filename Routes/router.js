@@ -115,7 +115,7 @@ router.post('/deleteAccount', async(req,res)=>{
 router.post('/changePassword', async(req,res)=>{
     const {email,password} = req.body;
     const hashPassword = await bcrypt.hash(password,10);
-    await UserInfo.updateOne({email:email},{password:hashPassword});
+    const existingUser = await UserInfo.updateOne({email:email},{password:hashPassword});
 
 
     return res.status(200).json("good")
@@ -123,9 +123,12 @@ router.post('/changePassword', async(req,res)=>{
 })
 
 router.post('/address/crud/:action',ensureToken,async(req,res)=>{
-    const {email,data,index} =  req.body;
-    const action = req.params.action;
     try {
+        const {email,index} =  req.body
+        const data = req.body.address;
+        const action = req.params.action;
+
+
         if(verifyToken(req.token)){
 
             var userData = await UserInfo.findOne({email:email});
@@ -149,8 +152,6 @@ router.post('/address/crud/:action',ensureToken,async(req,res)=>{
         }else{
             res.status(403).json('Invalid Token')
         }
-
-
         
         
     } catch (error) {
@@ -184,6 +185,7 @@ router.get('/stock/:gender/:category',async(req,res)=>{
 });
 
 router.get('/product/:gender/:category/:productId',async(req,res)=>{
+    const category = req.params.category;
     const gender = req.params.gender;
     const productId = req.params.productId;
     if(gender==='men'){
