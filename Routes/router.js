@@ -122,6 +122,30 @@ router.post('/changePassword', async(req,res)=>{
 
 })
 
+router.post('/address/crud/:action',async(req,res)=>{
+    try {
+        
+        const email = req.body.email;
+        const data = req.body.address;
+        const action = req.params.action;
+
+
+        if(action==='add'){
+            var userData = await UserInfo.findOne({email:email});
+            
+            await UserInfo.updateOne({email:email},{address:[...userData.address,data]});
+
+        }
+        
+        
+        res.status(200).json('address added')
+    } catch (error) {
+        res.status(200).json(error)
+    }
+
+
+})
+
 
 router.get('/stock/:gender/:category',async(req,res)=>{
     const category = req.params.category;
