@@ -135,6 +135,7 @@ router.post('/address/crud/:action',async(req,res)=>{
         if(action==='add'){
             
             await UserInfo.updateOne({email:email},{address:[...userData.address,data]});
+            res.status(200).json('address added')
 
         }else if(action==='remove'){
             var filArr = userData.address.filter((each,i)=>{
@@ -145,11 +146,11 @@ router.post('/address/crud/:action',async(req,res)=>{
             })
 
             await UserInfo.updateOne({email:email},{address:filArr});
+            res.status(200).json('address removes')
 
         }
         
         
-        res.status(200).json('address added')
     } catch (error) {
         res.status(200).json(error)
     }
