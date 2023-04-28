@@ -103,22 +103,33 @@ router.post('/matchPassword', async(req,res)=>{
 
 })
 
-router.post('/deleteAccount', async(req,res)=>{
+router.post('/deleteAccount',ensureToken, async(req,res)=>{
     const {email} = req.body;
-    await UserInfo.deleteOne({email:email});
+    if(verifyToken(req.token)){
+        await UserInfo.deleteOne({email:email});
+        res.status(200).json("deleted")
+
+    }else{
+        res.status(403).json('Invalid Token')
+
+    }
 
 
-    res.status(200).json("deleted")
 
 })
 
-router.post('/changePassword', async(req,res)=>{
+router.post('/changePassword', ensureToken,async(req,res)=>{
     const {email,password} = req.body;
     const hashPassword = await bcrypt.hash(password,10);
-    const existingUser = await UserInfo.updateOne({email:email},{password:hashPassword});
+    if(verifyToken(req.token)){
+
+        await UserInfo.updateOne({email:email},{password:hashPassword});
+        res.status(200).json("good")
+    }else{
+res.status(403).json('Invalid Token')
+    }
 
 
-    return res.status(200).json("good")
 
 })
 
