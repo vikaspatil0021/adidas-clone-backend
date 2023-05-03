@@ -5,7 +5,7 @@ import Jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
 dotenv.config();
 
-import { UserInfo, WomenProductInfo, MenProductInfo, KidsProductInfo } from '../models/models.js';
+import { UserInfo, WomenProductInfo, MenProductInfo, KidsProductInfo, WishListInfo } from '../models/models.js';
 
 const router = express.Router()
 
@@ -178,6 +178,8 @@ router.post('/address/crud/:action', ensureToken, async (req, res) => {
 
 
 })
+
+// router.post('/wishlist/:action')
 
 
 router.get('/stock/:gender/:category', async (req, res) => {
