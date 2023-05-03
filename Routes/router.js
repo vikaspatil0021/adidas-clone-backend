@@ -192,6 +192,17 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
                 await WishListInfo.updateOne({ email: email }, { products: [...WLData.products, data] });
                 res.status(200).json('product added');
+            }else if (action === 'remove') {
+                var filArr = WLData.products.filter((each) => {
+                    if (each.productId !==data.productId) {
+                        return each;
+                    }
+
+                })
+
+                await WishListInfo.updateOne({ email: email }, { products: filArr });
+                res.status(200).json('product removes')
+
             }
 
 
