@@ -179,7 +179,34 @@ router.post('/address/crud/:action', ensureToken, async (req, res) => {
 
 })
 
-// router.post('/wishlist/:action')
+router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
+
+    try {
+        const { action, email } = req.params;
+        const data = req.body.productInfo;
+
+        if (verifyToken(req.token)) {
+
+            const WLData = await UserInfo.findOne({ email: email });
+            if (action === 'add') {
+
+                await UserInfo.updateOne({ email: email }, { products: [...WLData.products, data] });
+                res.status(200).json('product added');
+            }
+
+
+        } else {
+            res.status(403).json('Invalid Token')
+        }
+
+    } catch (error) {
+        res.status(200).json(error)
+
+    }
+
+
+
+})
 
 
 router.get('/stock/:gender/:category', async (req, res) => {
@@ -243,14 +270,14 @@ router.get('/address/:email', ensureToken, async (req, res) => {
 
 });
 
-router.get('/wishlist/:email',ensureToken,async (req,res)=>{
+router.get('/wishlist/:email', ensureToken, async (req, res) => {
     try {
         const email = req.params.email;
-        if(verifyToken(req.token)){
-            var wishListData = await WishListInfo.findOne({email:email})
-            res.status(200).json(wishListData)
+        if (verifyToken(req.token)) {
+            var wishListData = await WishListInfo.findOne({ email: email })
+            res.status(200).json(wishListData.products)
 
-        }else{
+        } else {
             res.status(403).send('Invalid Token')
 
         }
