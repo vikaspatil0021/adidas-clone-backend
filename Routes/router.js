@@ -211,7 +211,7 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
         }
 
     } catch (error) {
-        res.status(200).json({msg:error})
+        res.status(200).json({msg:error.message})
 
     }
 
@@ -293,7 +293,7 @@ router.get('/wishlist/:email', ensureToken, async (req, res) => {
 
         }
     } catch (error) {
-        res.json({msg:error})
+        res.json({msg:error.message})
 
     }
 })
