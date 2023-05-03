@@ -87,6 +87,11 @@ const kidsProductSchema = mongoose.Schema({
     tag:String
 
 
+});
+
+const wishListSchema = mongoose.Schema({
+        email:String,
+        products:[]
 })
 
 
@@ -94,7 +99,8 @@ const UserInfo = mongoose.model("user",userSchema);
 const MenProductInfo = mongoose.model("men",menProductSchema);
 const WomenProductInfo = mongoose.model("women",womenProductSchema);
 const KidsProductInfo = mongoose.model("kid",kidsProductSchema);
+const WishListInfo = mongoose.model("wishlist",wishListSchema);
 
 
 
-export { UserInfo,MenProductInfo,WomenProductInfo,KidsProductInfo };
+export { UserInfo,MenProductInfo,WomenProductInfo,KidsProductInfo,WishListInfo };
