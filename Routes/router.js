@@ -187,10 +187,10 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
         if (verifyToken(req.token)) {
 
-            const WLData = await UserInfo.findOne({ email: email });
+            const WLData = await WishListInfo.findOne({ email: email });
             if (action === 'add') {
 
-                await UserInfo.updateOne({ email: email }, { products: [...WLData.products, data] });
+                await WishListInfo.updateOne({ email: email }, { products: [...WLData.products, data] });
                 res.status(200).json('product added');
             }
 
