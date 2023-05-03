@@ -187,13 +187,13 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
         if (verifyToken(req.token)) {
 
-            const WLData = await WishListInfo.findOne({ email: email });
+            const wlData = await WishListInfo.findOne({ email: email });
             if (action === 'add') {
 
-                await WishListInfo.updateOne({ email: email }, { products: [...WLData.products, data] });
+                await WishListInfo.updateOne({ email: email }, { products: [...wlData.products, data] });
                 res.status(200).json('product added');
             }else if (action === 'remove') {
-                var filArr = WLData.products.filter((each) => {
+                var filArr = wlData.products.filter((each) => {
                     if (each.productId !==data.productId) {
                         return each;
                     }
@@ -211,7 +211,7 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
         }
 
     } catch (error) {
-        res.status(200).json(error)
+        res.status(200).json({msg:error})
 
     }
 
@@ -293,7 +293,7 @@ router.get('/wishlist/:email', ensureToken, async (req, res) => {
 
         }
     } catch (error) {
-        res.json(error)
+        res.json({msg:error})
 
     }
 })
