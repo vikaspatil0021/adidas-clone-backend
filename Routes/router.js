@@ -245,8 +245,8 @@ router.get('/wishlist/:email',ensureToken,async (req,res)=>{
     try {
         const email = req.params.email;
         if(verifyToken(req.token)){
-            var wishListData = await WishListInfo.find({email:email})
-            res.status(200).json(wishListData.products)
+            var wishListData = await WishListInfo.findOne({email:email})
+            res.status(200).json(wishListData)
 
         }else{
             res.status(403).send('Invalid Token')
