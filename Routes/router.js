@@ -189,8 +189,14 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
             const wlData = await WishListInfo.findOne({ email: email });
             if (action === 'add') {
-
-                await WishListInfo.updateOne({ email: email }, { products: [...wlData.products, data] });
+                if(wlData){
+                    await WishListInfo.updateOne({ email: email }, { products: [...wlData.products, data] });
+                }else{
+                    await WishListInfo.create({
+                        email,
+                        products:[data]
+                    })
+                }
                 res.status(200).json('product added');
             }else if (action === 'remove') {
                 var filArr = wlData.products.filter((each) => {
