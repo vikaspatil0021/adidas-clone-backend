@@ -189,24 +189,46 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
             const wlData = await WishListInfo.findOne({ email: email });
             if (action === 'add') {
-                if(wlData){
+                if (wlData) {
                     await WishListInfo.updateOne({ email: email }, { products: [...wlData.products, data] });
-                }else{
+                } else {
                     await WishListInfo.create({
                         email,
-                        products:[data]
+                        products: [data]
                     })
                 }
+
+                if (data.url.includes('men')) {
+                    await MenProductInfo.updateOne({productId:data.productId},{$set:{wishlist:true}});
+
+                } else if (data.url.includes('women')) {
+
+                    await WomenProductInfo.updateOne({productId:data.productId},{$set:{wishlist:true}});
+                } else {
+                    await KidsProductInfo.updateOne({productId:data.productId},{$set:{wishlist:true}});
+                }
+
                 res.status(200).json('product added');
-            }else if (action === 'remove') {
+            } else if (action === 'remove') {
                 var filArr = wlData.products.filter((each) => {
-                    if (each.productId !==data.productId) {
+                    if (each.productId !== data.productId) {
                         return each;
                     }
 
                 })
 
                 await WishListInfo.updateOne({ email: email }, { products: filArr });
+
+
+                if (data.url.includes('men')) {
+                    await MenProductInfo.updateOne({productId:data.productId},{wishlist:false});
+
+                } else if (data.url.includes('women')) {
+
+                    await WomenProductInfo.updateOne({productId:data.productId},{wishlist:false});
+                } else {
+                    await KidsProductInfo.updateOne({productId:data.productId},{wishlist:false});
+                }
                 res.status(200).json('product removes')
 
             }
@@ -217,7 +239,7 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
         }
 
     } catch (error) {
-        res.status(200).json({msg:error.message})
+        res.status(200).json({ msg: error.message })
 
     }
 
@@ -293,14 +315,14 @@ router.get('/wishlist/:email', ensureToken, async (req, res) => {
         if (verifyToken(req.token)) {
             var wishListData = await WishListInfo.findOne({ email: email });
 
-            res.status(200).json((wishListData)?wishListData.products:[])
+            res.status(200).json((wishListData) ? wishListData.products : [])
 
         } else {
             res.status(403).send('Invalid Token')
 
         }
     } catch (error) {
-        res.json({msg:error.message})
+        res.json({ msg: error.message })
 
     }
 })

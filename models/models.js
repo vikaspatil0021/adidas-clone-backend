@@ -30,7 +30,8 @@ const menProductSchema = mongoose.Schema({
     priceTag:String,
     description:String,
     category:String,
-    tag:String
+    tag:String,
+    wishlist:Boolean
 
 
 })
@@ -57,7 +58,9 @@ const womenProductSchema = mongoose.Schema({
     priceTag:String,
     description:String,
     category:String,
-    tag:String
+    tag:String,
+    wishlist:Boolean
+
 
 
 });
@@ -84,7 +87,8 @@ const kidsProductSchema = mongoose.Schema({
     priceTag:String,
     description:String,
     category:String,
-    tag:String
+    tag:String,
+    wishlist:Boolean
 
 
 });
