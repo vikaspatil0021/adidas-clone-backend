@@ -252,9 +252,9 @@ router.post('/search', async (req, res) => {
     var finArr = data.filter((item) => {
         queryArr.forEach((eachQry) => {
             if (item.category.toLowerCase().includes(eachQry)) {
-                finArr.push(item);
+                return item;
             } else if (item.tag.includes(eachQry)) {
-                finArr.push(item);
+                return item;
             }
         })
 
@@ -265,7 +265,7 @@ router.post('/search', async (req, res) => {
             queryArr.forEach((eachQry) => {
 
                 if (item.name.toLowerCase().includes(eachQry)) {
-                    finArr.push(item);
+                    return item;
                 }
             })
 
