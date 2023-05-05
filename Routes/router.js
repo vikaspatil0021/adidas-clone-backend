@@ -260,16 +260,18 @@ router.post('/search', async (req, res) => {
 
 
     })
-    if (finArr.length === 0)
+    if (finArr.length === 0){
+
         finArr = data.filter((item) => {
             queryArr.forEach((eachQry) => {
-
+                
                 if (item.name.toLowerCase().includes(eachQry)) {
                     return item;
                 }
             })
-
+            
         })
+    }
 
 
     if (query == 'men' || query === 'women' || query == 'kids') {
