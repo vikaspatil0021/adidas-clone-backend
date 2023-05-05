@@ -249,7 +249,7 @@ router.post('/search', async (req, res) => {
         data = [...men, ...women, ...kids];
 
     }
-    var finArr = data.filter((item) => {
+    var cateAndTag = data.filter((item) => {
         queryArr.forEach((eachQry) => {
             if (item.category.toLowerCase().includes(eachQry)) {
                 return item;
@@ -260,9 +260,8 @@ router.post('/search', async (req, res) => {
 
 
     })
-    if (finArr.length === 0){
 
-        finArr = data.filter((item) => {
+        var nameFilter = data.filter((item) => {
             queryArr.forEach((eachQry) => {
                 
                 if (item.name.toLowerCase().includes(eachQry)) {
@@ -271,15 +270,21 @@ router.post('/search', async (req, res) => {
             })
             
         })
-    }
+    
 
 
     if (query == 'men' || query === 'women' || query == 'kids') {
         res.status(200).json(data);
 
     } else {
+        if(cateAndTag.length===0){
+            res.status(200).json(nameFilter);
 
-        res.status(200).json(finArr);
+        }else{
+
+            res.status(200).json(cateAndTag);
+        }
+
     }
 
 })
