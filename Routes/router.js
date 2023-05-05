@@ -260,20 +260,22 @@ router.post('/search', async (req, res) => {
 
 
     })
-    if(finArr.length===0)
-    finArr = data.filter((item) => {
-        
-        if (item.name.toLowerCase().includes(eachQry)) {
-            finArr.push(item);
-        }
+    if (finArr.length === 0)
+        finArr = data.filter((item) => {
+            queryArr.forEach((eachQry) => {
 
-    })
+                if (item.name.toLowerCase().includes(eachQry)) {
+                    finArr.push(item);
+                }
+            })
+
+        })
 
 
-    if(query=='men' ||query==='women' || query=='kids'){
+    if (query == 'men' || query === 'women' || query == 'kids') {
         res.status(200).json(data);
 
-    }else{
+    } else {
 
         res.status(200).json(finArr);
     }
