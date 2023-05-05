@@ -234,29 +234,47 @@ router.post('/search', async (req, res) => {
 
     if (query.includes('women')) {
         var data = await WomenProductInfo.find();
-
+        data.map((each)=>{
+            return {...each,url:'/women/All/' + each.productId}
+        });
     } else if (query.includes('men')) {
         data = await MenProductInfo.find();
-
+        data.map((each)=>{
+            return {...each,url:'/men/All/' + each.productId}
+        });
     } else if (query.includes('kids')) {
         data = await KidsProductInfo.find();
-
+        data.map((each)=>{
+            return {...each,url:'/kids/All/' + each.productId}
+        });
     } else {
 
         const men = await MenProductInfo.find();
         const women = await WomenProductInfo.find();
         const kids = await KidsProductInfo.find();
+
+        men.map((each)=>{
+            return {...each,url:'/men/All/' + each.productId}
+        });
+        women.map((each)=>{
+            return {...each,url:'/women/All/' + each.productId}
+        });
+        kids.map((each)=>{
+            return {...each,url:'/kids/All/' + each.productId}
+        })
         data = [...men, ...women, ...kids];
 
     }
     var cateAndTag = []
     data.filter((item) => {
+        let one = false
         queryArr.forEach((eachQry) => {
             if (item.category.toLowerCase().includes(eachQry) && eachQry != '' && eachQry.length > 2) {
                 cateAndTag.push(item);
             } else if (item.tag.includes(eachQry) && eachQry != '' && eachQry.length > 2) {
                 cateAndTag.push(item);
             }
+            one = true
         })
 
 
@@ -264,10 +282,10 @@ router.post('/search', async (req, res) => {
 
     var nameFilter = []
     data.filter((item) => {
-        var one = false
+        let one = false
         queryArr.forEach((eachQry) => {
 
-            if (item.name.toLowerCase().includes(eachQry) && eachQry != '' && eachQry.length > 2 && one==false) {
+            if (item.name.toLowerCase().includes(eachQry) && eachQry != '' && eachQry.length > 2 && one == false) {
                 nameFilter.push(item);
                 one = true
             }
