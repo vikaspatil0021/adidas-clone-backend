@@ -233,35 +233,30 @@ router.post('/search', async (req, res) => {
     const queryArr = query.split(' ');
 
     if (query.includes('women')) {
-        var data = await WomenProductInfo.find();
-        data = data.map((each)=>{
+        var data = await WomenProductInfo.find().map((each)=>{
             return {...each,url:'/women/All/' + each.productId}
         });
     } else if (query.includes('men')) {
-        data = await MenProductInfo.find();
-        data = data.map((each)=>{
+        data = await MenProductInfo.find().map((each)=>{
             return {...each,url:'/men/All/' + each.productId}
         });
     } else if (query.includes('kids')) {
-        data = await KidsProductInfo.find();
-        data = data.map((each)=>{
+        data = await KidsProductInfo.find().map((each)=>{
             return {...each,url:'/kids/All/' + each.productId}
         });
     } else {
 
-        const men = await MenProductInfo.find();
-        const women = await WomenProductInfo.find();
-        const kids = await KidsProductInfo.find();
-
-        men = men.map((each)=>{
+        const men = await MenProductInfo.find().map((each)=>{
             return {...each,url:'/men/All/' + each.productId}
         });
-        women = women.map((each)=>{
+        const women = await WomenProductInfo.find().map((each)=>{
             return {...each,url:'/women/All/' + each.productId}
         });
-        kids = kids.map((each)=>{
+        const kids = await KidsProductInfo.find().map((each)=>{
             return {...each,url:'/kids/All/' + each.productId}
-        })
+        });
+
+     
         data = [...men, ...women, ...kids];
 
     }
