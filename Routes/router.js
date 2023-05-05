@@ -259,6 +259,9 @@ router.post('/search', async (req, res) => {
                 finArr.push(item);
             }else if(item.name.includes(eachQry)){
                 finArr.push(item);
+            }else{
+                finArr.push(item);
+
             }
         })
 
