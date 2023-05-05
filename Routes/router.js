@@ -266,8 +266,13 @@ router.post('/search', async (req, res) => {
 
 
 
+    if(query=='men' ||query==='women' || query=='kids'){
+        res.status(200).json(data);
 
-    res.status(200).json(finArr);
+    }else{
+
+        res.status(200).json(finArr);
+    }
 
 })
 
