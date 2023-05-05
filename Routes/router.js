@@ -252,9 +252,9 @@ router.post('/search', async (req, res) => {
     const finArr = []
     data.filter((item) => {
         queryArr.forEach((eachQry) => {
-            if (eachQry.includes(item.category.toLowerCase())) {
+            if (item.category.toLowerCase().includes(eachQry)) {
                 finArr.push(item);
-            } else if (eachQry.includes(item.tag)) {
+            } else if (item.tag.includes(eachQry)) {
                 finArr.push(item);
             } else if (item.name.toLowerCase().includes(eachQry)) {
                 finArr.push(item);
