@@ -250,13 +250,13 @@ router.post('/search', async (req, res) => {
 
     }
     const finArr = []
-    queryArr.forEach((eachQry)=>{
-        data.filter((item)=>{
-            if(eachQry.includes(item.category)){
+    data.filter((item) => {
+        queryArr.forEach((eachQry) => {
+            if (eachQry.includes(item.category.toLowerCase())) {
                 finArr.push(item);
-            }else if(eachQry.includes(item.tags)){
+            } else if (eachQry.includes(item.tag)) {
                 finArr.push(item);
-            }else if(item.name.includes(eachQry)){
+            } else if (item.name.toLowerCase().includes(eachQry)) {
                 finArr.push(item);
             }
         })
