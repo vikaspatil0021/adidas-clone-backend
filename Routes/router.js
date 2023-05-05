@@ -228,35 +228,34 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 })
 
 
-router.post('/search', (req, res) => {
+router.post('/search', async (req, res) => {
     const { query } = req.body;
-    const queryArr = query.toLowerCase().split(' ');
+    query.toLowerCase()
+    const queryArr = query.split(' ');
 
-    const common = {
-        tags: ['originals', 'running', 'lifestyle'],
-        category: ['clothing', 'footwear', 'accessories']
-    };
-    const commonMatch = {
-        tags: [],
-        category: []
+    if (query.includes('women')) {
+        var data = await WomenProductInfo.find();
+
+    } else if (query.includes('men')) {
+        data = await MenProductInfo.find();
+
+    } else if (query.includes('kids')) {
+        data = await KidsProductInfo.find();
+
+    } else {
+
+        const men = await MenProductInfo.find();
+        const women = await WomenProductInfo.find();
+        const kids = await KidsProductInfo.find();
+        data = [...men, ...women, ...kids];
+
     }
 
-    queryArr.forEach((eachQry) => {
-        common.tags.forEach((tag) => {
-            if (eachQry.includes(tag)) {
-                commonMatch.tags.push(tag);
-            }
-        });
-
-        common.category.forEach((cate) => {
-            if (eachQry.includes(cate)) {
-                commonMatch.category.push(cate);
-            }
-        })
-    })
 
 
-    res.json(commonMatch)
+
+
+    res.json(query,data);
 
 })
 
