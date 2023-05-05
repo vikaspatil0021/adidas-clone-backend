@@ -198,16 +198,6 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
                     })
                 }
 
-                if (data.url.includes('men')) {
-                    await MenProductInfo.updateOne({productId:data.productId},{$set:{wishlist:true}});
-
-                } else if (data.url.includes('women')) {
-
-                    await WomenProductInfo.updateOne({productId:data.productId},{$set:{wishlist:true}});
-                } else {
-                    await KidsProductInfo.updateOne({productId:data.productId},{$set:{wishlist:true}});
-                }
-
                 res.status(200).json('product added');
             } else if (action === 'remove') {
                 var filArr = wlData.products.filter((each) => {
@@ -219,16 +209,6 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
                 await WishListInfo.updateOne({ email: email }, { products: filArr });
 
-
-                if (data.url.includes('men')) {
-                    await MenProductInfo.updateOne({productId:data.productId},{wishlist:false});
-
-                } else if (data.url.includes('women')) {
-
-                    await WomenProductInfo.updateOne({productId:data.productId},{wishlist:false});
-                } else {
-                    await KidsProductInfo.updateOne({productId:data.productId},{wishlist:false});
-                }
                 res.status(200).json('product removes')
 
             }
@@ -244,6 +224,39 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
     }
 
 
+
+})
+
+
+router.post('/search', (req, res) => {
+    const { query } = req.body;
+    const queryArr = query.toLowerCase().split(' ');
+
+    const common = {
+        tags: ['originals', 'running', 'lifestyle'],
+        category: ['clothing', 'footwear', 'accessories']
+    };
+    const commonMatch = {
+        tags: [],
+        category: []
+    }
+
+    queryArr.forEach((eachQry) => {
+        common.tags.forEach((tag) => {
+            if (eachQry.includes(tag)) {
+                commonMatch.tags.push(tag);
+            }
+        });
+
+        common.category.forEach((cate) => {
+            if (eachQry.includes(cate)) {
+                commonMatch.category.push(cate);
+            }
+        })
+    })
+
+
+    res.json(commonMatch)
 
 })
 
