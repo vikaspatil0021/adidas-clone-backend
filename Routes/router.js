@@ -252,9 +252,9 @@ router.post('/search', async (req, res) => {
     var cateAndTag = []
     data.filter((item) => {
         queryArr.forEach((eachQry) => {
-            if (item.category.toLowerCase().includes(eachQry) && eachQry!='' && eachQry.length>2) {
+            if (item.category.toLowerCase().includes(eachQry) && eachQry != '' && eachQry.length > 2) {
                 cateAndTag.push(item);
-            } else if (item.tag.includes(eachQry) && eachQry!='' && eachQry.length>2) {
+            } else if (item.tag.includes(eachQry) && eachQry != '' && eachQry.length > 2) {
                 cateAndTag.push(item);
             }
         })
@@ -264,16 +264,12 @@ router.post('/search', async (req, res) => {
 
     var nameFilter = []
     data.filter((item) => {
+        var one = false
         queryArr.forEach((eachQry) => {
 
-            if (item.name.toLowerCase().includes(eachQry) && eachQry!='' && eachQry.length>2) {
-                nameFilter.forEach((i)=>{
-                    if(i.productId!==item.productId){
-
-                        nameFilter.push(item);
-                    }
-                    
-                })
+            if (item.name.toLowerCase().includes(eachQry) && eachQry != '' && eachQry.length > 2 && one==false) {
+                nameFilter.push(item);
+                one = true
             }
         })
 
@@ -290,7 +286,7 @@ router.post('/search', async (req, res) => {
 
         } else {
 
-             final = cateAndTag;
+            final = cateAndTag;
         }
 
     }
