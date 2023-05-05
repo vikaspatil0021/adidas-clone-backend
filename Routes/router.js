@@ -250,12 +250,25 @@ router.post('/search', async (req, res) => {
         data = [...men, ...women, ...kids];
 
     }
+    const finArr = []
+    queryArr.forEach((eachQry)=>{
+        data.filter((item)=>{
+            if(eachQry.includes(item.category)){
+                finArr.push(item);
+            }else if(eachQry.includes(item.tags)){
+                finArr.push(item);
+            }else if(item.name.includes(eachQry)){
+                finArr.push(item);
+            }
+        })
+
+
+    })
 
 
 
 
-
-    res.status(200).json(data);
+    res.status(200).json(finArr);
 
 })
 
