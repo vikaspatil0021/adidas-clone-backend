@@ -249,38 +249,40 @@ router.post('/search', async (req, res) => {
         data = [...men, ...women, ...kids];
 
     }
-    var cateAndTag = data.filter((item) => {
+    var cateAndTag = []
+    data.filter((item) => {
         queryArr.forEach((eachQry) => {
             if (item.category.toLowerCase().includes(eachQry)) {
-                return item;
+                cateAndTag.push(item);
             } else if (item.tag.includes(eachQry)) {
-                return item;
+                cateAndTag.push(item);
             }
         })
 
 
     })
 
-        var nameFilter = data.filter((item) => {
-            queryArr.forEach((eachQry) => {
-                
-                if (item.name.toLowerCase().includes(eachQry)) {
-                    return item;
-                }
-            })
-            
+    var nameFilter = []
+    data.filter((item) => {
+        queryArr.forEach((eachQry) => {
+
+            if (item.name.toLowerCase().includes(eachQry)) {
+                nameFilter.push(item);
+            }
         })
-    
+
+    })
+
 
 
     if (query == 'men' || query === 'women' || query == 'kids') {
         res.status(200).json(data);
 
     } else {
-        if(cateAndTag.length===0){
+        if (cateAndTag.length === 0) {
             res.status(200).json(nameFilter);
 
-        }else{
+        } else {
 
             res.status(200).json(cateAndTag);
         }
