@@ -267,7 +267,13 @@ router.post('/search', async (req, res) => {
         queryArr.forEach((eachQry) => {
 
             if (item.name.toLowerCase().includes(eachQry) && eachQry!='' && eachQry.length>2) {
-                nameFilter.push(item);
+                nameFilter.forEach((i)=>{
+                    if(i.productId!==item.productId){
+
+                        nameFilter.push(item);
+                    }
+                    
+                })
             }
         })
 
@@ -276,18 +282,19 @@ router.post('/search', async (req, res) => {
 
 
     if (query == 'men' || query === 'women' || query == 'kids') {
-        res.status(200).json(data);
+        var final = data;
 
     } else {
         if (cateAndTag.length === 0) {
-            res.status(200).json(nameFilter);
+            final = nameFilter;
 
         } else {
 
-            res.status(200).json(cateAndTag);
+             final = cateAndTag;
         }
 
     }
+    res.status(200).json(final);
 
 })
 
