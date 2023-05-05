@@ -249,21 +249,25 @@ router.post('/search', async (req, res) => {
         data = [...men, ...women, ...kids];
 
     }
-    const finArr = []
-    data.filter((item) => {
+    var finArr = data.filter((item) => {
         queryArr.forEach((eachQry) => {
             if (item.category.toLowerCase().includes(eachQry)) {
                 finArr.push(item);
             } else if (item.tag.includes(eachQry)) {
-                finArr.push(item);
-            } else if (item.name.toLowerCase().includes(eachQry)) {
                 finArr.push(item);
             }
         })
 
 
     })
+    if(finArr.length===0)
+    finArr = data.filter((item) => {
+        
+        if (item.name.toLowerCase().includes(eachQry)) {
+            finArr.push(item);
+        }
 
+    })
 
 
     if(query=='men' ||query==='women' || query=='kids'){
