@@ -255,7 +255,7 @@ router.post('/search', async (req, res) => {
 
 
 
-    res.json(query,data);
+    res.status(200).json(data);
 
 })
 
