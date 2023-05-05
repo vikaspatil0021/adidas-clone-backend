@@ -234,17 +234,17 @@ router.post('/search', async (req, res) => {
 
     if (query.includes('women')) {
         var data = await WomenProductInfo.find();
-        data.map((each)=>{
+        data = data.map((each)=>{
             return {...each,url:'/women/All/' + each.productId}
         });
     } else if (query.includes('men')) {
         data = await MenProductInfo.find();
-        data.map((each)=>{
+        data = data.map((each)=>{
             return {...each,url:'/men/All/' + each.productId}
         });
     } else if (query.includes('kids')) {
         data = await KidsProductInfo.find();
-        data.map((each)=>{
+        data = data.map((each)=>{
             return {...each,url:'/kids/All/' + each.productId}
         });
     } else {
@@ -253,13 +253,13 @@ router.post('/search', async (req, res) => {
         const women = await WomenProductInfo.find();
         const kids = await KidsProductInfo.find();
 
-        men.map((each)=>{
+        men = men.map((each)=>{
             return {...each,url:'/men/All/' + each.productId}
         });
-        women.map((each)=>{
+        women = women.map((each)=>{
             return {...each,url:'/women/All/' + each.productId}
         });
-        kids.map((each)=>{
+        kids = kids.map((each)=>{
             return {...each,url:'/kids/All/' + each.productId}
         })
         data = [...men, ...women, ...kids];
