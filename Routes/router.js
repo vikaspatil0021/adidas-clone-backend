@@ -229,8 +229,7 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
 
 router.post('/search', async (req, res) => {
-    const { query } = req.body;
-    query.toLowerCase()
+    const query = (req.body.query).toLowerCase();
     const queryArr = query.split(' ');
 
     if (query.includes('women')) {
@@ -268,7 +267,7 @@ router.post('/search', async (req, res) => {
 
 
 
-    res.status(200).json(finArr);
+    res.status(200).json((finArr.length===0)?data:finArr);
 
 })
 
