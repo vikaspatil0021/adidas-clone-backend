@@ -252,9 +252,9 @@ router.post('/search', async (req, res) => {
     var cateAndTag = []
     data.filter((item) => {
         queryArr.forEach((eachQry) => {
-            if (item.category.toLowerCase().includes(eachQry)) {
+            if (item.category.toLowerCase().includes(eachQry) && eachQry!='') {
                 cateAndTag.push(item);
-            } else if (item.tag.includes(eachQry)) {
+            } else if (item.tag.includes(eachQry) && eachQry!='') {
                 cateAndTag.push(item);
             }
         })
@@ -266,7 +266,7 @@ router.post('/search', async (req, res) => {
     data.filter((item) => {
         queryArr.forEach((eachQry) => {
 
-            if (item.name.toLowerCase().includes(eachQry)) {
+            if (item.name.toLowerCase().includes(eachQry) && eachQry!='') {
                 nameFilter.push(item);
             }
         })
