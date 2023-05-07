@@ -254,16 +254,16 @@ router.post('/search', async (req, res) => {
             const women = await WomenProductInfo.find();
             const kids = await KidsProductInfo.find();
 
-            // data = [[...men].forEach((each) => {
-            //     return { ...each, url: '/men/All/' + each.productId }
-            // }),
+            const m = men.map((each) => {
+                return { ...each, url: '/men/All/' + each.productId }
+            });
             // [...women].forEach((each) => {
             //     return { ...each, url: '/women/All/' + each.productId }
             // }),
             // [...kids].forEach((each) => {
             //     return { ...each, url: '/kids/All/' + each.productId }
             // })]
-            data = [...men, ...women, ...kids];
+            data = [...m, ...women, ...kids];
 
         }
         var cateAndTag = []
