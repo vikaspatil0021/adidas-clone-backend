@@ -324,7 +324,7 @@ router.post('/search', async (req, res) => {
 
         } else {
 
-            final = (cate.length!=0 && cateAndTag.length!=0)? cateAndTag:cate;
+            final = (cate.length!=0 )? (cateAndTag.length!=0)?cateAndTag:cate:cateAndTag;
         }
 
     }
