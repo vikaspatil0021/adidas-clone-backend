@@ -307,7 +307,7 @@ router.post('/search', async (req, res) => {
             // queryArr.forEach((eachQry) => {
 
             if (item.name.toLowerCase().includes(queryArr[i]) && queryArr[i] != '' && queryArr[i].length > 2) {
-                if(!item.name.toLowerCase().includes('men') || !item.name.toLowerCase().includes('women') || !item.name.toLowerCase().includes('kids') ){
+                if(!queryArr[i].toLowerCase().includes('men') || !queryArr[i].toLowerCase().includes('women') || !queryArr[i].toLowerCase().includes('kids') ){
 
                     nameFilter.push(item);
                 }
