@@ -303,28 +303,33 @@ router.post('/search', async (req, res) => {
     var nameFilter = []
     data.filter((item) => {
         let one = false
-        queryArr.forEach((eachQry) => {
-
-            if (item.name.toLowerCase().includes(eachQry) && eachQry != '' && eachQry.length > 2 && one == false) {
+        // queryArr.forEach((eachQry) => {
+        let i = 0;
+        do {
+            
+            if (item.name.toLowerCase().includes(queryArr[i]) && queryArr[i] != '' && queryArr[i].length > 2 && one == false) {
                 nameFilter.push(item);
                 one = true
             }
-        })
+            i++;
+        }
+        while (nameFilter.length===0 && i <queryArr.length);
+        // })
 
     })
 
 
 
-    if (query == 'men' || query === 'women' || query == 'kids') {
+    if (query == 'men' || query === 'women' || query == 'kids' || query == 'men ' || query === 'women ' || query == 'kids ') {
         var final = data;
 
     } else {
-        if (cateAndTag.length === 0 && cate.length===0) {
+        if (cateAndTag.length === 0 && cate.length === 0) {
             final = nameFilter;
 
         } else {
 
-            final = (cate.length!=0 )? ((cateAndTag.length!=0)?cateAndTag:cate):cateAndTag;
+            final = (cate.length != 0) ? ((cateAndTag.length != 0) ? cateAndTag : cate) : cateAndTag;
         }
 
     }
