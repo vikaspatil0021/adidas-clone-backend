@@ -229,27 +229,27 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
 
 router.post('/search', async (req, res) => {
-    const query = (req.body.query).toLowerCase();
-    const queryArr = query.split(' ');
+    var query = (req.body.query).toLowerCase();
+    var queryArr = query.split(' ');
     try {
         
    
     if (query.includes('women')) {
-        const women = await WomenProductInfo.find();
+        let women = await WomenProductInfo.find();
         var data = [...women].map((each) => {
             return { ...each, url: '/women/All/' + each.productId }
         });
     } else if (query.includes('men')) {
-        men = await MenProductInfo.find();
+        let men = await MenProductInfo.find();
         data = [...men].map((each) => {
             return { ...each, url: '/men/All/' + each.productId }
         });
     } else if (query.includes('kids')) {
-        kids = await KidsProductInfo.find();
+        let kids = await KidsProductInfo.find();
         data = [...kids].map((each) => {
             return { ...each, url: '/kids/All/' + each.productId }
         });
-    } else {
+    } else { b
 
         const men = await MenProductInfo.find();
         const women = await WomenProductInfo.find();
