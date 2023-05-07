@@ -229,41 +229,41 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
 
 router.post('/search', async (req, res) => {
-        var query = req.body.query;
+        var query = req.body.query.toLowerCase();
         var queryArr = query.split(' ');
 
 
         if (query.includes('women')) {
-            let women = await WomenProductInfo.find();
-            var data = [...women].map((each) => {
-                return { ...each, url: '/women/All/' + each.productId }
-            });
+            var data = await WomenProductInfo.find();
+            // var data = [...women].map((each) => {
+            //     return { ...each, url: '/women/All/' + each.productId }
+            // });
         } else if (query.includes('men')) {
-            let men = await MenProductInfo.find();
-            data = [...men].map((each) => {
-                return { ...each, url: '/men/All/' + each.productId }
-            });
+            data = await MenProductInfo.find();
+            // data = [...men].map((each) => {
+            //     return { ...each, url: '/men/All/' + each.productId }
+            // });
         } else if (query.includes('kids')) {
-            let kids = await KidsProductInfo.find();
-            data = [...kids].map((each) => {
-                return { ...each, url: '/kids/All/' + each.productId }
-            });
+            data = await KidsProductInfo.find();
+            // data = [...kids].map((each) => {
+            //     return { ...each, url: '/kids/All/' + each.productId }
+            // });
         } else {
 
             const men = await MenProductInfo.find();
             const women = await WomenProductInfo.find();
             const kids = await KidsProductInfo.find();
 
-            data = [[...men].forEach((each) => {
-                return { ...each, url: '/men/All/' + each.productId }
-            }),
-            [...women].forEach((each) => {
-                return { ...each, url: '/women/All/' + each.productId }
-            }),
-            [...kids].forEach((each) => {
-                return { ...each, url: '/kids/All/' + each.productId }
-            })]
-            // data = [...men, ...women, ...kids];
+            // data = [[...men].forEach((each) => {
+            //     return { ...each, url: '/men/All/' + each.productId }
+            // }),
+            // [...women].forEach((each) => {
+            //     return { ...each, url: '/women/All/' + each.productId }
+            // }),
+            // [...kids].forEach((each) => {
+            //     return { ...each, url: '/kids/All/' + each.productId }
+            // })]
+            data = [...men, ...women, ...kids];
 
         }
         var cateAndTag = []
