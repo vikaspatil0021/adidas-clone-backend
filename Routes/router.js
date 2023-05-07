@@ -257,6 +257,7 @@ router.post('/search', async (req, res) => {
             const m = men.map((each) => {
                 return { ...each, url: '/men/All/' + each.productId }
             });
+            console.log(m);
             // [...women].forEach((each) => {
             //     return { ...each, url: '/women/All/' + each.productId }
             // }),
