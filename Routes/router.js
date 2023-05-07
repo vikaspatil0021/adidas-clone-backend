@@ -271,20 +271,34 @@ router.post('/search', async (req, res) => {
         })];
 
     }
-    var cateAndTag = []
+    var cate = []
     data.filter((item) => {
         let one = false
         queryArr.forEach((eachQry) => {
             if (item.category.toLowerCase().includes(eachQry) && eachQry != '' && eachQry.length > 2) {
-                cateAndTag.push(item);
-            } else if (item.tag.includes(eachQry) && eachQry != '' && eachQry.length > 2) {
-                cateAndTag.push(item);
+                cate.push(item);
             }
             one = true
         })
 
 
     })
+    var cateAndTag = []
+    if (cate.length !== 0) {
+        var fil01 = cate
+    } else {
+        fil01 = data
+    }
+    fil01.filter((item) => {
+        let one = false
+        queryArr.forEach((eachQry) => {
+            if (item.tag.includes(eachQry) && eachQry != '' && eachQry.length > 2) {
+                cateAndTag.push(item);
+            }
+            one = true
+        })
+    })
+
 
     var nameFilter = []
     data.filter((item) => {
@@ -310,7 +324,7 @@ router.post('/search', async (req, res) => {
 
         } else {
 
-            final = cateAndTag;
+            final =  cateAndTag;
         }
 
     }
