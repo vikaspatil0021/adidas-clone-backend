@@ -303,18 +303,18 @@ router.post('/search', async (req, res) => {
     var nameFilter = []
     let i = 0;
     do {
-    data.filter((item) => {
-        // queryArr.forEach((eachQry) => {
-            
-            if (item.name.toLowerCase().includes(queryArr[i]) && queryArr[i] != '' && queryArr[i].length > 2 ) {
+        data.filter((item) => {
+            // queryArr.forEach((eachQry) => {
+
+            if (item.name.toLowerCase().includes(queryArr[i]) && queryArr[i] != '' && queryArr[i].length > 2) {
                 nameFilter.push(item);
             }
-            i++;
             // })
             
         })
+        i++;
     }
-    while (nameFilter.length===0 && i <queryArr.length);
+    while (nameFilter.length === 0 && i < queryArr.length);
 
 
 
