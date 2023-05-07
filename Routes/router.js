@@ -229,7 +229,6 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
 
 router.post('/search', async (req, res) => {
-    try {
         var query = req.body.query;
         var queryArr = query.split(' ');
 
@@ -311,10 +310,7 @@ router.post('/search', async (req, res) => {
 
         }
         res.status(200).json(final);
-    } catch (error) {
-        res.status(500).json({m:error, msg: error.message, query });
 
-    }
 })
 
 
