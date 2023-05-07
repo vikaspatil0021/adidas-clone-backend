@@ -304,12 +304,10 @@ router.post('/search', async (req, res) => {
     let i = 0;
     do {
     data.filter((item) => {
-        let one = false
         // queryArr.forEach((eachQry) => {
             
-            if (item.name.toLowerCase().includes(queryArr[i]) && queryArr[i] != '' && queryArr[i].length > 2 && one == false) {
+            if (item.name.toLowerCase().includes(queryArr[i]) && queryArr[i] != '' && queryArr[i].length > 2 ) {
                 nameFilter.push(item);
-                one = true
             }
             i++;
             // })
