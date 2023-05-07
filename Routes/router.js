@@ -313,7 +313,7 @@ router.post('/search', async (req, res) => {
         }
         res.status(200).json(final);
     } catch (error) {
-        res.status(500).json({ msg: error.message, query });
+        res.status(500).json({m:error, msg: error.message, query });
 
     }
 })
