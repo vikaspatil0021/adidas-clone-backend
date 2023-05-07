@@ -231,21 +231,23 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 router.post('/search', async (req, res) => {
     const query = (req.body.query).toLowerCase();
     const queryArr = query.split(' ');
-
+    try {
+        
+   
     if (query.includes('women')) {
         const women = await WomenProductInfo.find();
-        var data = women.filter((each)=>{
-            return {...each,url:'/women/All/' + each.productId}
+        var data = women.forEach((each) => {
+            return { ...each, url: '/women/All/' + each.productId }
         });
     } else if (query.includes('men')) {
         men = await MenProductInfo.find();
-        data = men.filter((each)=>{
-            return {...each,url:'/men/All/' + each.productId}
+        data = men.forEach((each) => {
+            return { ...each, url: '/men/All/' + each.productId }
         });
     } else if (query.includes('kids')) {
         kids = await KidsProductInfo.find();
-        data = kids.filter((each)=>{
-            return {...each,url:'/kids/All/' + each.productId}
+        data = kids.forEach((each) => {
+            return { ...each, url: '/kids/All/' + each.productId }
         });
     } else {
 
@@ -253,14 +255,14 @@ router.post('/search', async (req, res) => {
         const women = await WomenProductInfo.find();
         const kids = await KidsProductInfo.find();
 
-        data = [...men.filter((each)=>{
-            return {...each,url:'/men/All/' + each.productId}
+        data = [...men.forEach((each) => {
+            return { ...each, url: '/men/All/' + each.productId }
         }),
-        ...women.filter((each)=>{
-            return {...each,url:'/women/All/' + each.productId}
+        ...women.forEach((each) => {
+            return { ...each, url: '/women/All/' + each.productId }
         }),
-        ...kids.filter((each)=>{
-            return {...each,url:'/kids/All/' + each.productId}
+        ...kids.forEach((each) => {
+            return { ...each, url: '/kids/All/' + each.productId }
         })]
         // data = [...men, ...women, ...kids];
 
@@ -309,7 +311,10 @@ router.post('/search', async (req, res) => {
 
     }
     res.status(200).json(final);
+} catch (error) {
+    res.status(500).json(error.message);
 
+}
 })
 
 
