@@ -254,7 +254,7 @@ router.post('/search', async (req, res) => {
             const women = await WomenProductInfo.find();
             const kids = await KidsProductInfo.find();
 
-            const m = men.map((each) => {
+            const m = [...men].map((each) => {
                 return { ...each, url: '/men/All/' + each.productId }
             });
             console.log(m);
