@@ -307,7 +307,10 @@ router.post('/search', async (req, res) => {
             // queryArr.forEach((eachQry) => {
 
             if (item.name.toLowerCase().includes(queryArr[i]) && queryArr[i] != '' && queryArr[i].length > 2) {
-                nameFilter.push(item);
+                if(item.name.toLowerCase().includes('men')==false || item.name.toLowerCase().includes('women')===false || item.name.toLowerCase().includes('kids')===false ){
+
+                    nameFilter.push(item);
+                }
             }
             // })
             
