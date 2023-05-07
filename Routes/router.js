@@ -319,12 +319,12 @@ router.post('/search', async (req, res) => {
         var final = data;
 
     } else {
-        if (cateAndTag.length === 0) {
+        if (cateAndTag.length === 0 && cate.length===0) {
             final = nameFilter;
 
         } else {
 
-            final = (cate.length!=0 )? (cateAndTag.length!=0)?cateAndTag:cate:cateAndTag;
+            final = (cate.length!=0 )? ((cateAndTag.length!=0)?cateAndTag:cate):cateAndTag;
         }
 
     }
