@@ -229,92 +229,93 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
 
 router.post('/search', async (req, res) => {
-    var query = req.body.query.toLowerCase();
-    var queryArr = query.split(' ');
     try {
-        
-   
-    if (query.includes('women')) {
-        let women = await WomenProductInfo.find();
-        var data = [...women].map((each) => {
-            return { ...each, url: '/women/All/' + each.productId }
-        });
-    } else if (query.includes('men')) {
-        let men = await MenProductInfo.find();
-        data = [...men].map((each) => {
-            return { ...each, url: '/men/All/' + each.productId }
-        });
-    } else if (query.includes('kids')) {
-        let kids = await KidsProductInfo.find();
-        data = [...kids].map((each) => {
-            return { ...each, url: '/kids/All/' + each.productId }
-        });
-    } else { b
-
-        const men = await MenProductInfo.find();
-        const women = await WomenProductInfo.find();
-        const kids = await KidsProductInfo.find();
-
-        data = [[...men].forEach((each) => {
-            return { ...each, url: '/men/All/' + each.productId }
-        }),
-        [...women].forEach((each) => {
-            return { ...each, url: '/women/All/' + each.productId }
-        }),
-        [...kids].forEach((each) => {
-            return { ...each, url: '/kids/All/' + each.productId }
-        })]
-        // data = [...men, ...women, ...kids];
-
-    }
-    var cateAndTag = []
-    data.filter((item) => {
-        let one = false
-        queryArr.forEach((eachQry) => {
-            if (item.category.toLowerCase().includes(eachQry) && eachQry != '' && eachQry.length > 2) {
-                cateAndTag.push(item);
-            } else if (item.tag.includes(eachQry) && eachQry != '' && eachQry.length > 2) {
-                cateAndTag.push(item);
-            }
-            one = true
-        })
+        var query = req.body.query.toLowerCase();
+        var queryArr = query.split(' ');
 
 
-    })
+        if (query.includes('women')) {
+            let women = await WomenProductInfo.find();
+            var data = [...women].map((each) => {
+                return { ...each, url: '/women/All/' + each.productId }
+            });
+        } else if (query.includes('men')) {
+            let men = await MenProductInfo.find();
+            data = [...men].map((each) => {
+                return { ...each, url: '/men/All/' + each.productId }
+            });
+        } else if (query.includes('kids')) {
+            let kids = await KidsProductInfo.find();
+            data = [...kids].map((each) => {
+                return { ...each, url: '/kids/All/' + each.productId }
+            });
+        } else {
+            b
 
-    var nameFilter = []
-    data.filter((item) => {
-        let one = false
-        queryArr.forEach((eachQry) => {
+            const men = await MenProductInfo.find();
+            const women = await WomenProductInfo.find();
+            const kids = await KidsProductInfo.find();
 
-            if (item.name.toLowerCase().includes(eachQry) && eachQry != '' && eachQry.length > 2 && one == false) {
-                nameFilter.push(item);
+            data = [[...men].forEach((each) => {
+                return { ...each, url: '/men/All/' + each.productId }
+            }),
+            [...women].forEach((each) => {
+                return { ...each, url: '/women/All/' + each.productId }
+            }),
+            [...kids].forEach((each) => {
+                return { ...each, url: '/kids/All/' + each.productId }
+            })]
+            // data = [...men, ...women, ...kids];
+
+        }
+        var cateAndTag = []
+        data.filter((item) => {
+            let one = false
+            queryArr.forEach((eachQry) => {
+                if (item.category.toLowerCase().includes(eachQry) && eachQry != '' && eachQry.length > 2) {
+                    cateAndTag.push(item);
+                } else if (item.tag.includes(eachQry) && eachQry != '' && eachQry.length > 2) {
+                    cateAndTag.push(item);
+                }
                 one = true
-            }
+            })
+
+
         })
 
-    })
+        var nameFilter = []
+        data.filter((item) => {
+            let one = false
+            queryArr.forEach((eachQry) => {
+
+                if (item.name.toLowerCase().includes(eachQry) && eachQry != '' && eachQry.length > 2 && one == false) {
+                    nameFilter.push(item);
+                    one = true
+                }
+            })
+
+        })
 
 
 
-    if (query == 'men' || query === 'women' || query == 'kids') {
-        var final = data;
-
-    } else {
-        if (cateAndTag.length === 0) {
-            final = nameFilter;
+        if (query == 'men' || query === 'women' || query == 'kids') {
+            var final = data;
 
         } else {
+            if (cateAndTag.length === 0) {
+                final = nameFilter;
 
-            final = cateAndTag;
+            } else {
+
+                final = cateAndTag;
+            }
+
         }
+        res.status(200).json(final);
+    } catch (error) {
+        res.status(500).json({ msg: error.message, query });
 
     }
-    res.status(200).json(final);
-} catch (error) {
-    res.status(500).json({msg:error.message,query});
-
-}
 })
 
 
