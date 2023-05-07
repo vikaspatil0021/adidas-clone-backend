@@ -230,7 +230,7 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
 router.post('/search', async (req, res) => {
     try {
-        var query = req.body.query.toLowerCase();
+        var query = req.body.query;
         var queryArr = query.split(' ');
 
 
