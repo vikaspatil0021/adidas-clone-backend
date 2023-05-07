@@ -250,7 +250,6 @@ router.post('/search', async (req, res) => {
                 return { ...each, url: '/kids/All/' + each.productId }
             });
         } else {
-            b
 
             const men = await MenProductInfo.find();
             const women = await WomenProductInfo.find();
