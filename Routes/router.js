@@ -301,22 +301,22 @@ router.post('/search', async (req, res) => {
 
 
     var nameFilter = []
+    let i = 0;
+    do {
     data.filter((item) => {
         let one = false
         // queryArr.forEach((eachQry) => {
-        let i = 0;
-        do {
             
             if (item.name.toLowerCase().includes(queryArr[i]) && queryArr[i] != '' && queryArr[i].length > 2 && one == false) {
                 nameFilter.push(item);
                 one = true
             }
             i++;
-        }
-        while (nameFilter.length===0 && i <queryArr.length);
-        // })
-
-    })
+            // })
+            
+        })
+    }
+    while (nameFilter.length===0 && i <queryArr.length);
 
 
 
