@@ -241,7 +241,7 @@ router.post('/orders',ensureToken,async(req,res)=>{
                     orders:[{products:order.products,address:order.address}]
                 })
             }
-            res.status(200).json(oData)
+            res.status(200).json(data)
 
         } else {
             res.status(403).json('Invalid Token')
