@@ -230,9 +230,16 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 router.post('/orders',ensureToken,async(req,res)=>{
     try {
         const order = req.body.order;
-        await OrdersInfo.create({
-            ...order
-        })
+        if(verifyToken(req.token)){
+
+            const data = await OrdersInfo.create({
+                ...order
+            })
+            res.status(200).json(data)
+
+        } else {
+            res.status(403).json('Invalid Token')
+        }
     } catch (error) {
         res.json(error.message)
     }
