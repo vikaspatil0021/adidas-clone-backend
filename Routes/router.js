@@ -5,7 +5,7 @@ import Jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
 dotenv.config();
 
-import { UserInfo, WomenProductInfo, MenProductInfo, KidsProductInfo, WishListInfo } from '../models/models.js';
+import { UserInfo, WomenProductInfo, MenProductInfo, KidsProductInfo, WishListInfo, OrdersInfo } from '../models/models.js';
 
 const router = express.Router()
 
@@ -227,6 +227,17 @@ router.post('/wishlist/crud/:action/:email', ensureToken, async (req, res) => {
 
 })
 
+router.post('/orders',ensureToken,async(req,res)=>{
+    try {
+        const order = req.body.order;
+        await OrdersInfo.create({
+            ...order
+        })
+    } catch (error) {
+        res.json(error.message)
+    }
+})
+
 
 router.post('/search', async (req, res) => {
     var query = req.body.query.toLowerCase();
@@ -271,6 +282,7 @@ router.post('/search', async (req, res) => {
         })];
 
     }
+    // by category
     var cate = []
     data.filter((item) => {
         let one = false
@@ -283,6 +295,7 @@ router.post('/search', async (req, res) => {
 
 
     })
+    // by tag
     var cateAndTag = []
     if (cate.length !== 0) {
         var fil01 = cate
@@ -299,7 +312,7 @@ router.post('/search', async (req, res) => {
         })
     })
 
-
+    // by name
     var nameFilter = []
     let i = 0;
     do {
@@ -307,13 +320,13 @@ router.post('/search', async (req, res) => {
             // queryArr.forEach((eachQry) => {
 
             if (item.name.toLowerCase().includes(queryArr[i]) && queryArr[i] != '' && queryArr[i].length > 2) {
-                if(queryArr[i]!=='men' && queryArr[i]!=='women' && queryArr[i]!==('kids')){
+                if (queryArr[i] !== 'men' && queryArr[i] !== 'women' && queryArr[i] !== ('kids')) {
 
                     nameFilter.push(item);
                 }
             }
             // })
-            
+
         })
         i++;
     }

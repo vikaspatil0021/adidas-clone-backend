@@ -96,6 +96,12 @@ const kidsProductSchema = mongoose.Schema({
 const wishListSchema = mongoose.Schema({
         email:String,
         products:[]
+});
+
+const ordersSchema = mongoose.Schema({
+    email:String,
+    products:[],
+    address:{}
 })
 
 
@@ -104,7 +110,14 @@ const MenProductInfo = mongoose.model("men",menProductSchema);
 const WomenProductInfo = mongoose.model("women",womenProductSchema);
 const KidsProductInfo = mongoose.model("kid",kidsProductSchema);
 const WishListInfo = mongoose.model("wishlist",wishListSchema);
+const OrdersInfo = mongoose.model("order",ordersSchema);
 
 
 
-export { UserInfo,MenProductInfo,WomenProductInfo,KidsProductInfo,WishListInfo };
+export { UserInfo,
+    MenProductInfo,
+    WomenProductInfo,
+    KidsProductInfo,
+    WishListInfo,
+    OrdersInfo
+};
