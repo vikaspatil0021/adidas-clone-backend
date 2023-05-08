@@ -237,7 +237,7 @@ router.post('/orders',ensureToken,async(req,res)=>{
                 var data  = await OrdersInfo.updateOne({ email: order.email }, { orders: [...oData.orders, {products:order.products,address:order.address}] });
             } else {
                 data = await OrdersInfo.create({
-                    email,
+                    email:order.email,
                     orders:[{products:order.products,address:order.address}]
                 })
             }
