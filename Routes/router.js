@@ -233,14 +233,14 @@ router.post('/orders',ensureToken,async(req,res)=>{
         if(verifyToken(req.token)){
 
             const oData = await OrdersInfo.findOne({email:order.email})
-            // if (oData) {
-            //     var data  = await OrdersInfo.updateOne({ email: order.email }, { orders: [...oData.orders., {products:order.products,address:order.address}] });
-            // } else {
-            //     data = await OrdersInfo.create({
-            //         email:order.email,
-            //         orders:[{products:order.products,address:order.address}]
-            //     })
-            // }
+            if (oData) {
+                var data  = await OrdersInfo.updateOne({ email: order.email }, { orders: [...oData.orders, {products:order.products,address:order.address}] });
+            } else {
+                data = await OrdersInfo.create({
+                    email:order.email,
+                    orders:[{products:order.products,address:order.address}]
+                })
+            }
             res.status(200).json(oData)
 
         } else {
