@@ -419,6 +419,23 @@ router.get('/address/:email', ensureToken, async (req, res) => {
 
 
 });
+router.get('/orders/:email', ensureToken, async (req, res) => {
+    try {
+
+        const email = req.params.email;
+        if (verifyToken(req.token)) {
+
+            var data = await OrdersInfo.findOne({ email: email });
+            res.status(200).json(data)
+        } else {
+            res.status(403).send('Invalid Token')
+        }
+    } catch (error) {
+        res.json(error)
+    }
+
+
+});
 
 router.get('/wishlist/:email', ensureToken, async (req, res) => {
     try {
