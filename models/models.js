@@ -100,8 +100,7 @@ const wishListSchema = mongoose.Schema({
 
 const ordersSchema = mongoose.Schema({
     email:String,
-    products:[],
-    address:{}
+    orders:[]
 })
 
 

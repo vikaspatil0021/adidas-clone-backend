@@ -232,9 +232,15 @@ router.post('/orders',ensureToken,async(req,res)=>{
         const order = req.body.order;
         if(verifyToken(req.token)){
 
-            const data = await OrdersInfo.create({
-                ...order
-            })
+            const oData = OrdersInfo.findOne({email:order.email})
+            if (oData) {
+                var data  = await OrdersInfo.updateOne({ email: email }, { orders: [...oData.orders, {products:order.products,address:order.address}] });
+            } else {
+                data = await OrdersInfo.create({
+                    email,
+                    orders:[{products:order.products,address:order.address}]
+                })
+            }
             res.status(200).json(data)
 
         } else {
