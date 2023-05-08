@@ -234,11 +234,11 @@ router.post('/orders',ensureToken,async(req,res)=>{
 
             const oData = await OrdersInfo.findOne({email:order.email})
             if (oData) {
-                var data  = await OrdersInfo.updateOne({ email: order.email }, { orders: [...oData.orders, {products:order.products,address:order.address}] });
+                var data  = await OrdersInfo.updateOne({ email: order.email }, { orders: [...oData.orders, {products:order.products,address:order.address,date:order.date,total:order.total}] });
             } else {
                 data = await OrdersInfo.create({
                     email:order.email,
-                    orders:[{products:order.products,address:order.address}]
+                    orders:[{products:order.products,address:order.address,date:order.date,total:order.total}]
                 })
             }
             res.status(200).json(data)
