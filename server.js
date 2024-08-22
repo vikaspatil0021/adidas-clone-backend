@@ -13,7 +13,7 @@ import cors from "cors";
 const corsOptions = {
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200,
-    origin: ["http://localhost:3000","http://abc1.localhost:8000","https://adidas-clone-0021.vercel.app","https://abc1.skywaveapp.work.gd"]
+    origin: ["http://localhost:3000","http://abc1.localhost:8000","https://adidas-clone-0021.vercel.app","https://adidas-clone.skywaveapp.work.gd"]
 
 
 }
