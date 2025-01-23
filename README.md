@@ -7,7 +7,7 @@ This backend code serves to frontend api requests to get data ,authenticate and 
 
 This MERN project is available live on
 
-https://adidas-clone-0021.vercel.app/
+https://adidas-clone.skywaveapp.site
 
 
 
